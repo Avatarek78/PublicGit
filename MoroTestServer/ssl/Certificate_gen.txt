@@ -1,0 +1,124 @@
+
+****************************************************************************************************
+Working command for selfsigned certificate.
+
+keytool -genkey -dname "CN=localhost, OU=WincoreNixdorf, O=MoroSystems, L=Hradec Kralove, ST=Czech Republic, C=CZ" -keyalg RSA -alias localhost -keystore keystore.jks -storepass password -validity 360 -keysize 2048
+
+Convert to p12
+keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.p12 -srcalias localhost -srcstoretype jks -deststoretype pkcs12
+
+Import to trusted keystore
+keytool -importkeystore -destkeystore mytrustedkeystore.jks -srckeystore keystore.p12 -srcstoretype pkcs12 -alias localhost
+
+Tomcat na Windows
+
+Spouštíte-li Tomcat přímo, pomocí skriptu startup.bat, proveďte následující kroky.
+
+Přejděte do domovského adresáře vaší instalace Tomcatu.
+
+Otevřete soubor bin/setenv.bat v textovém editoru.
+
+Na konec výčtu argumentů za příkazem set přidejte -Djavax.net.ssl.trustStore=/path/to/truststore a změny uložte. Příslušná řádka vypadá např. takto:
+
+set "JAVA_OPTS=%JAVA_OPTS% -Dfile.encoding=UTF8 -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -XX:MaxPermSize=256m -Djavax.net.ssl.trustStore=/path/to/truststore"
+
+<Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+               clientAuth="false" sslProtocol="TLS" keystoreFile="c:/Program Files/Java/jre7/lib/security/cacerts" 
+               keystorePass="changeit" />
+			   
+			   -Djavax.net.ssl.trustStore=D:\mytrustedkeystore.jks 
+			   -Djavax.net.ssl.trustStorePassword=changeit
+			   
+
+****************************************************************************************************
+
+other below is not working fine...
+
+Steps to create a self-signed certificate and configure Custom Identity and Custom Trust with Weblogic Server using Keytool...
+
+Command 1 :
+
+keytool -genkey -alias tomaskey -keyalg RSA -keysize 1024 -validity 365 -keypass privatepassword -keystore identity.jks -storepass password
+
+To create a 2048 bit SHA2/SHA256 certificate use the following command :
+
+keytool -genkey -alias tomaskey2048 -keyalg RSA -keysize 2048 -sigalg SHA256withRSA -validity 365 -keypass privatepassword -keystore identity.jks -storepass password
+
+Command 2 :
+
+keytool  -export -alias tomaskey -file tomaslanger.cer -keystore identity.jks -storepass password
+
+keytool  -export -alias tomaskey2048 -file tomaslanger.cer -keystore identity.jks -storepass password
+
+Command 3 :
+
+keytool -import -alias tomaskey -file tomaslanger.cer -keystore trust.jks -storepass password
+
+keytool -import -alias tomaskey2048 -file tomaslanger.cer -keystore trust.jks -storepass password
+
+-------------------------------------------------------------------------------------------------------
+
+Delete:
+
+keytool -delete -alias tomaskey -keystore identity.jks
+
+
+CN=Tomas Langer is probably wrong. CN for testing must be "localhost"
+
+CN=hostname - it's the first option you're being asked for here. It's confusing that keytool refers to it as "first and last name".
+
+Následně jsme vyzváni zadat jméno a příjmení,
+což je nešťastně definované. Je tím myšleno Canonical Name (CN) tedy název hostitele
+nebo počítače. Příkladem pro www.vutbr.cz by bylo CN jméno „vutbr.cz“. Toto je
+Obr. 3.3: Výpis příkazů aplikace keytool
+Obr. 3.4: Vytvoření certifikátu
+33
+nejčastější chyba u vlastnoručně podepsaných certifikátů. Jméno domény musí být
+obsaženo v CN. V našem případě je certifikát určen pro zkoušku na lokálním PC,
+použijeme tedy CN jméno „localhost“. Pakliže zadáme místo doménového jména IP
+adresu, pro localhost je to 127.0.0.1, tento certifikát nebude fungovat. Jedinou možností,
+je pak upravení DNS záznamu v operačním systému ve složce
+C:\Windows\System32\drivers\etc a přidáním IP adresy a doménového jména do
+souboru hosts. Tím je dosaženo toho, že je možno použit libovolné doménové jméno
+například vutbr a přesměrovat jej na adresu 127.0.0.1. Je nutné mít na paměti, že takto
+upravený DNS záznam funguje pouze na daném PC a neovlivňuje DNS jméno v síti.
+
+C:\Program Files\Java\jdk1.8.0_45\bin>keytool -list -v -keystore keystore.jks
+Enter keystore password:
+
+Your keystore contains 1 entry
+
+Alias name: selfsigned
+Creation date: 29.3.2016
+Entry type: PrivateKeyEntry
+Certificate chain length: 1
+Certificate[1]:
+Owner: CN=localhost, OU=WincoreNixdorf, O=MoroSystems, L=Hradec Kralove, ST=Czec
+h Republic, C=CZ
+Issuer: CN=localhost, OU=WincoreNixdorf, O=MoroSystems, L=Hradec Kralove, ST=Cze
+ch Republic, C=CZ
+Serial number: 65b6100f
+Valid from: Tue Mar 29 21:12:17 CEST 2016 until: Fri Mar 24 20:12:17 CET 2017
+Certificate fingerprints:
+         MD5:  E3:DD:0E:8D:82:4B:C8:55:FF:DB:BC:0D:2B:94:C6:3E
+         SHA1: 22:1B:BC:38:1D:3E:9B:2E:BE:74:0D:FD:1F:3B:75:01:0F:B3:CF:74
+         SHA256: 84:E5:CA:00:EC:C7:5F:6B:7E:66:ED:4A:45:64:4D:2C:00:30:95:44:50:
+CC:9C:D2:0B:CF:FD:34:9E:9F:15:B7
+         Signature algorithm name: SHA256withRSA
+         Version: 3
+
+Extensions:
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: E4 16 F5 2B 1C 25 E1 A9   B8 88 D0 4E D8 82 EA 5D  ...+.%.....N...]
+0010: 79 A9 7A EB                                        y.z.
+]
+]
+
+
+
+*******************************************
+*******************************************

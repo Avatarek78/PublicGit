@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <!--Automatic transactions in doInHibernate!!!-->
+    <property name="hibernate.current_session_context_class">jta</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/moro_server</property>
+    <property name="hibernate.connection.zeroDateTimeBehavior">convertToNull</property>
+    <property name="hibernate.connection.username">postgres</property>
+    <property name="hibernate.connection.CharSet">utf8</property>
+    <property name="hibernate.connection.characterEncoding">utf8</property>
+    <property name="hibernate.connection.useUnicode">true</property>
+    <property name="hibernate.connection.password">root</property>    
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
+    <!--Automatic commit in doInHibernate!!!-->
+    <property name="hibernate.connection.autocommit">true</property>
+    <property name="hibernate.use_sql_comments">true</property>    
+    <property name="hibernate.generate_statistics">false</property>
+    <!-- Scan for annotated classes and Hibernate mapping XML files -->
+    <property name="hibernate.archive.autodetection">class, hbm</property>
+    <!-- Disable the second-level cache -->
+    <!--  c3p0 -->
+    <property name="hibernate.c3p0.validate">true</property>
+    <property name="hibernate.connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</property>
+    <property name="hibernate.c3p0.min_size">3</property>
+    <property name="hibernate.c3p0.max_size">5</property>
+    <property name="hibernate.c3p0.timeout">1800</property>
+    <property name="hibernate.c3p0.max_statements">50</property>
+    <property name="hibernate.c3p0.preferredTestQuery">SELECT 1</property>
+    <property name="hibernate.c3p0.testConnectionOnCheckout">true</property>
+    <property name="hibernate.c3p0.idle_test_timeout">800</property>
+    <property name="hibernate.c3p0.idle_test_period">100</property>
+    <property name="hibernate.c3p0.timeout">500</property>
+    <property name="hibernate.c3p0.maxConnectionAge">400</property>
+    <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+    <!--
+    <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+    <property name="hibernate.cache.use_second_level_cache">true</property>
+    <property name="hibernate.cache.use_query_cache">true</property>
+    <property name="net.sf.ehcache.configurationResourceName">/myehcache.xml</property>-->
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    <mapping class="cz.morosystems.morotestserver.dao.MessageForServer"/>
+  </session-factory>
+</hibernate-configuration>

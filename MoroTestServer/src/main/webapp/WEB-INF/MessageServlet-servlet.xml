@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<bean id="messageService"
+		class="cz.morosystems.morotestserver.servlet.MessageServlet" />
+
+	<bean name="/messageService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="messageService" />
+		<property name="serviceInterface" value="cz.morosystems.morotestcommon.MessageService"/>
+	</bean>
+        
+        <!-- Enable Annotation based Declarative Transaction Management -->
+        <tx:annotation-driven proxy-target-class="true"
+            transaction-manager="transactionManager" />        
+        
+        <bean id="transactionManager"
+            class="org.springframework.orm.hibernate4.HibernateTransactionManager" 
+            p:sessionFactory-ref="sessionFactory">
+        </bean>
+        
+        <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+            <property name="dataSource" ref="dataSource"></property>
+            <property name="configLocation">    
+                <value>
+                    classpath:/hibernate.cfg.xml
+                </value>
+            </property>
+            <property name="packagesToScan" value="cz.morosystems.morotestserver.dao" />
+        </bean>
+
+        <!-- PostgreDB DataSource -->
+        <bean id="dataSource"
+            class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+            <property name="driverClassName" value="org.postgresql.Driver" />
+            <property name="url" value="jdbc:postgresql://localhost:5432/moro_server" />
+            <property name="username" value="postgres" />
+            <property name="password" value="root" />
+        </bean>
+</beans>

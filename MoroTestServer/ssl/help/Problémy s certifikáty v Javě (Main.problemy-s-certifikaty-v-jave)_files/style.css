@@ -1,0 +1,60 @@
+@import "/resources/css/microformats.css";
+@import "/skin/skins/colibri/colibri.css?colorTheme=ColorThemes.CVUT";
+
+#body {
+    color: #393939;
+}
+
+p {
+    line-height: 1.6em;
+}
+
+blockquote {
+    border: none;
+    background: none;
+    border-left: 4px solid #DDDDDD;
+    color: #777777;
+    padding: 0 1em;
+}
+
+.main ol:not([class]), .main ul:not([class]) {
+ line-height: 1.6em;
+ padding-bottom: 0.3em;
+}
+
+.main ol:not([class]) *, .main ul:not([class]) * {
+ line-height: 1.6em;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+ul ul {
+    list-style-type: circle;
+}
+
+ol ol {
+    list-style-type: lower-alpha;
+}
+
+.box.code {
+    background-color: #F5F5F5;
+    border: 1px solid #DDDDDD;
+    border-radius: 3px;
+}
+
+span.box.code {
+    margin: 0;
+    padding: 0 .2em;
+}
+
+div.box.code {
+    overflow: auto;
+    padding: .4em .7em;
+}
+
+
+.edit_section {
+    margin: -20px 0 -18px 0;
+}
