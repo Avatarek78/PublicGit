@@ -1,0 +1,44 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+
+/*Color for OK messages*/
+.ok {
+    color:green;
+}
+
+/*Color for error messages*/
+.errors {
+    color:red;
+}
+
+/*Space between divs*/
+div {
+     margin: 5px;
+}
+
+/*Collapsed table borders*/
+table {
+    border-collapse: collapse;
+}
+
+/*Thin black table lines*/
+table, td, th {
+    border: 1px solid black;
+}
+
+/*Table header height*/
+th {
+    height: 50px;
+}
+
+/*Striped table*/
+tr:nth-child(even) {background-color: #f2f2f2}
+
+/*Color fot table header*/
+th {
+    background-color: #0000FF;
+    color: white;
+}

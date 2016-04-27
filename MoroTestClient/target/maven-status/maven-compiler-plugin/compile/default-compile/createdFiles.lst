@@ -1,0 +1,9 @@
+cz\morosystems\morotestclient\config\Config.class
+cz\morosystems\morotestclient\model\MessageHistoryItem.class
+cz\morosystems\morotestclient\controller\SendMessageWorker.class
+cz\morosystems\morotestclient\config\WebInitializer$1.class
+cz\morosystems\morotestclient\config\WebInitializer.class
+cz\morosystems\morotestclient\controller\QuartzMsgHistoryController.class
+cz\morosystems\morotestclient\controller\SendMessageController.class
+cz\morosystems\morotestclient\scheduler\AutoMessageJob.class
+cz\morosystems\morotestclient\model\MessageHistory.class
