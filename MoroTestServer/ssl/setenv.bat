@@ -1,0 +1,1 @@
+set "JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStore="c:\Program Files\Apache Software Foundation\Tomcat 8.0\mytrustedkeystore.jks" -Djavax.net.ssl.trustStorePassword=changeit"
