@@ -1,9 +1,8 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 MoroTestServer,cz.morosystems.morotestserver.servlet,MessageServlet,185,0,8,0,42,0,11,0,7,0
 MoroTestServer,cz.morosystems.morotestserver,ServletListener,17,0,0,0,8,0,4,0,4,0
-MoroTestServer,cz.morosystems.morotestserver.dao,MessageForServerDaoImpl,18,121,3,3,3,27,3,8,0,8
-MoroTestServer,cz.morosystems.morotestserver.dao,MessageForServer_,3,0,0,0,1,0,1,0,1,0
+MoroTestServer,cz.morosystems.morotestserver.dao,MessageForServerDaoImpl,18,123,3,3,3,28,3,8,0,8
 MoroTestServer,cz.morosystems.morotestserver.dao,HibernateUtil,19,37,1,1,4,14,2,4,1,4
-MoroTestServer,cz.morosystems.morotestserver.dao,MessageForServer,38,19,0,0,8,8,6,4,6,4
+MoroTestServer,cz.morosystems.morotestserver.dao,MessageForServer,41,16,0,0,9,7,7,3,7,3
 MoroTestServer,cz.morosystems.morotestserver.dao,MessageForServerDaoImpl.new HibernateCallback() {...},0,19,0,0,0,3,0,2,0,2
 MoroTestServer,cz.morosystems.morotestserver.dao,MessageForServerDaoImpl.new HibernateCallback() {...},0,13,0,0,0,3,0,2,0,2

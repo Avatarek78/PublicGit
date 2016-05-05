@@ -1,6 +1,6 @@
-D:\Projects\!Java\MoroTestServer\src\main\java\cz\morosystems\morotestserver\dao\MessageForServerDaoImpl.java
-D:\Projects\!Java\MoroTestServer\src\main\java\cz\morosystems\morotestserver\ServletListener.java
-D:\Projects\!Java\MoroTestServer\src\main\java\cz\morosystems\morotestserver\dao\MessageForServer.java
-D:\Projects\!Java\MoroTestServer\src\main\java\cz\morosystems\morotestserver\servlet\MessageServlet.java
-D:\Projects\!Java\MoroTestServer\src\main\java\cz\morosystems\morotestserver\dao\HibernateUtil.java
-D:\Projects\!Java\MoroTestServer\src\main\java\cz\morosystems\morotestserver\dao\MessageForServerDao.java
+D:\Projects\MoroTestServer\src\main\java\cz\morosystems\morotestserver\dao\MessageForServerDao.java
+D:\Projects\MoroTestServer\src\main\java\cz\morosystems\morotestserver\dao\HibernateUtil.java
+D:\Projects\MoroTestServer\src\main\java\cz\morosystems\morotestserver\ServletListener.java
+D:\Projects\MoroTestServer\src\main\java\cz\morosystems\morotestserver\dao\MessageForServerDaoImpl.java
+D:\Projects\MoroTestServer\src\main\java\cz\morosystems\morotestserver\dao\MessageForServer.java
+D:\Projects\MoroTestServer\src\main\java\cz\morosystems\morotestserver\servlet\MessageServlet.java

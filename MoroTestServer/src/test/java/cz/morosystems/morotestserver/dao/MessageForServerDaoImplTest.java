@@ -48,7 +48,7 @@ public class MessageForServerDaoImplTest {
 
     /**
      * Test of addMessage method, of class MessageForServerDaoImpl.
-     * Also tested method remMessage when deleting messages which is added.
+     * Also tested methods getMessage, getAllMessages and remMessage when deleting test messages which is added in this test.
      * @throws java.lang.Exception
      */
     @Test
@@ -58,6 +58,10 @@ public class MessageForServerDaoImplTest {
         {
             MessageForServer message = new MessageForServer("test HibernateCallback" + i, new Date());
             Integer id = daoImpl.addMessage(message);
+            //Test of testGetAllMessages() method.
+            List<MessageForServer> allMessages = daoImpl.getAllMessages(); 
+            if(allMessages.isEmpty())
+                fail("Test of getAllMessages method not return any message.");                
             //Check if message exist in database.
             message = daoImpl.getMessage(id);
             if(message == null)            
@@ -78,8 +82,9 @@ public class MessageForServerDaoImplTest {
 
     /**
      * Test of getMessage method, of class MessageForServerDaoImpl.
+     * This is not necessary because this funcionality already tested by testAddMessage() method.
      */
-    @Test
+    //@Test
     public void testGetMessage() throws Exception {
         System.out.println("getMessage");
         for(int msgId=1;msgId < 4;msgId++)
@@ -94,8 +99,9 @@ public class MessageForServerDaoImplTest {
 
     /**
      * Test of getAllMessages method, of class MessageForServerDaoImpl.
+     * This is not necessary because this funcionality already tested by testAddMessage() method.
      */
-    @Test
+    //@Test
     public void testGetAllMessages() throws Exception {
         System.out.println("testGetAllMessages");
         List<MessageForServer> allMessages = daoImpl.getAllMessages();  

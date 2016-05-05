@@ -5,7 +5,6 @@
  */
 package cz.morosystems.morotestserver.dao;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -25,12 +24,12 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 @Stateless
 public class MessageForServerDaoImpl extends HibernateDaoSupport implements MessageForServerDao {    
         
-<span class="fc" id="L28">    private static final Logger LOG=LogManager.getLogger(HibernateUtil.class);</span>
+<span class="fc" id="L27">    private static final Logger LOG=LogManager.getLogger(HibernateUtil.class);</span>
 
-<span class="fc" id="L30">    public MessageForServerDaoImpl() {</span>
-<span class="fc" id="L31">        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();</span>
-<span class="fc" id="L32">        setSessionFactory(sessionFactory);</span>
-<span class="fc" id="L33">    }    </span>
+<span class="fc" id="L29">    public MessageForServerDaoImpl() {</span>
+<span class="fc" id="L30">        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();</span>
+<span class="fc" id="L31">        setSessionFactory(sessionFactory);</span>
+<span class="fc" id="L32">    }    </span>
     
     /**
      * Storing message into the database.
@@ -40,21 +39,21 @@ public class MessageForServerDaoImpl extends HibernateDaoSupport implements Mess
      */
     @Override    
     public Integer addMessage(MessageForServer message) throws DataAccessException {
-<span class="fc" id="L43">        Integer id=-1;</span>
+<span class="fc" id="L42">        Integer id=-1;</span>
         //I try to use lambda expression for call doInHibernate.
         //A little confusing to me.        
-<span class="fc" id="L46">        id = getHibernateTemplate().execute((Session session) -&gt; {                 </span>
-<span class="fc" id="L47">            Integer msgid = (Integer) session.save(message);   </span>
+<span class="fc" id="L45">        id = getHibernateTemplate().execute((Session session) -&gt; {                 </span>
+<span class="fc" id="L46">            Integer msgid = (Integer) session.save(message);   </span>
             //Unfortunately I do't know how to do it without worry about flushing data to database manually.
-<span class="fc" id="L49">            session.flush();                     </span>
-<span class="fc" id="L50">            return msgid;</span>
+<span class="fc" id="L48">            session.flush();                     </span>
+<span class="fc" id="L49">            return msgid;</span>
         });        
-<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if(id != -1)</span>
-<span class="fc" id="L53">            LOG.info(&quot;Message with ID=&quot; + id + &quot; added.&quot;);</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">        if(id != -1)</span>
+<span class="fc" id="L52">            LOG.info(&quot;Message with ID=&quot; + id + &quot; added.&quot;);</span>
         else
-<span class="nc" id="L55">            LOG.error(&quot;addMessages to database error&quot;);</span>
+<span class="nc" id="L54">            LOG.error(&quot;addMessage to database error&quot;);</span>
         
-<span class="fc" id="L57">        return id;</span>
+<span class="fc" id="L56">        return id;</span>
     } 
 
     /**
@@ -64,14 +63,14 @@ public class MessageForServerDaoImpl extends HibernateDaoSupport implements Mess
      */
     @Override
     public MessageForServer getMessage(int msgId) throws DataAccessException {      
-<span class="fc" id="L67">        MessageForServer message = (MessageForServer) getHibernateTemplate().execute(new HibernateCallback&lt;MessageForServer&gt;() {</span>
+<span class="fc" id="L66">        MessageForServer message = (MessageForServer) getHibernateTemplate().execute(new HibernateCallback&lt;MessageForServer&gt;() {</span>
             @Override
             public MessageForServer doInHibernate(Session session) throws HibernateException {                
-<span class="fc" id="L70">                MessageForServer message = (MessageForServer) session.get(MessageForServer.class, msgId);                </span>
-<span class="fc" id="L71">                return message;</span>
+<span class="fc" id="L69">                MessageForServer message = (MessageForServer) session.get(MessageForServer.class, msgId);                </span>
+<span class="fc" id="L70">                return message;</span>
             }
         });
-<span class="fc" id="L74">        return message;</span>
+<span class="fc" id="L73">        return message;</span>
     }
 
     /**
@@ -80,15 +79,15 @@ public class MessageForServerDaoImpl extends HibernateDaoSupport implements Mess
      */
     @Override
     public List&lt;MessageForServer&gt; getAllMessages() throws DataAccessException {
-<span class="fc" id="L83">        List&lt;MessageForServer&gt; messages = new LinkedList&lt;&gt;();</span>
-<span class="fc" id="L84">        messages = (List&lt;MessageForServer&gt;) getHibernateTemplate().execute(new HibernateCallback&lt;List&lt;MessageForServer&gt;&gt;() {</span>
+<span class="fc" id="L82">        List&lt;MessageForServer&gt; messages = new LinkedList&lt;&gt;();</span>
+<span class="fc" id="L83">        messages = (List&lt;MessageForServer&gt;) getHibernateTemplate().execute(new HibernateCallback&lt;List&lt;MessageForServer&gt;&gt;() {</span>
             @Override
             public List&lt;MessageForServer&gt; doInHibernate(Session session) throws HibernateException {                
-<span class="fc" id="L87">                List&lt;MessageForServer&gt; messages = session.createQuery(&quot;FROM MessageForServer&quot;).list();</span>
-<span class="fc" id="L88">                return messages;</span>
+<span class="fc" id="L86">                List&lt;MessageForServer&gt; messages = session.createQuery(&quot;FROM MessageForServer&quot;).list();</span>
+<span class="fc" id="L87">                return messages;</span>
             }
         });                
-<span class="fc" id="L91">        return messages;</span>
+<span class="fc" id="L90">        return messages;</span>
     } 
 
     /**
@@ -99,29 +98,31 @@ public class MessageForServerDaoImpl extends HibernateDaoSupport implements Mess
      */
     @Override
     public boolean remMessage(int msgId) throws DataAccessException {
-<span class="fc" id="L102">        Boolean success=false;</span>
+<span class="fc" id="L101">        Boolean success=false;</span>
         //I try to use lambda expression for call doInHibernate.
         //A little confusing to me.        
-<span class="fc" id="L105">        success = getHibernateTemplate().execute((Session session) -&gt; {                 </span>
-<span class="fc" id="L106">            MessageForServer message = (MessageForServer) session.get(MessageForServer.class, msgId);</span>
-<span class="pc bpc" id="L107" title="1 of 2 branches missed.">            if(message != null)</span>
+<span class="fc" id="L104">        success = getHibernateTemplate().execute((Session session) -&gt; {                 </span>
+<span class="fc" id="L105">            MessageForServer message = (MessageForServer) session.get(MessageForServer.class, msgId);</span>
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">            if(message != null)</span>
             {
                 //If message exists delete it.
-<span class="fc" id="L110">                session.delete(message);</span>
-<span class="fc" id="L111">                return true;</span>
+<span class="fc" id="L109">                session.delete(message);</span>
+                //Unfortunately I do't know how to do it without worry about flushing data to database manually.
+<span class="fc" id="L111">                session.flush(); </span>
+<span class="fc" id="L112">                return true;</span>
             }
             else
             {
-<span class="nc" id="L115">                return false;                </span>
+<span class="nc" id="L116">                return false;                </span>
             }
             
         });        
-<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        if(success)</span>
-<span class="fc" id="L120">            LOG.info(&quot;Message with ID=&quot; + msgId + &quot; deleted successfully.&quot;);</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        if(success)</span>
+<span class="fc" id="L121">            LOG.info(&quot;Message with ID=&quot; + msgId + &quot; deleted successfully.&quot;);</span>
         else
-<span class="nc" id="L122">            LOG.error(&quot;remMessage with ID=&quot; + msgId + &quot; failed.&quot;);</span>
+<span class="nc" id="L123">            LOG.error(&quot;remMessage with ID=&quot; + msgId + &quot; failed.&quot;);</span>
         
-<span class="fc" id="L124">        return success;</span>
+<span class="fc" id="L125">        return success;</span>
     }
     
 }
