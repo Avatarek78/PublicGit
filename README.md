@@ -1,7 +1,7 @@
 # Server Client test app
 
 Jak má celá aplikace fungovat :
-* Bude použít Maven pro správu závislostí.
+* Bude použit Maven pro správu závislostí.
 * Bude použit Log4J pro logování událostí aplikací (komunikace, volání metod apod.).
 * Clientská část bude komunikovat se serverovou částí (komunikace může být zabezpečená
 přes SSL – nutnost vygenerování klíče a jeho použití).
